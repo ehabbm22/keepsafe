@@ -1,0 +1,174 @@
+body {
+    padding: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+:root {
+    --c-main: #198754;
+}
+
+#navbarSupportedContent {
+    margin-left: 80px;
+}
+
+.container-fluid {
+    font-family: "Changa", sans-serif;
+}
+
+.navbar a {
+    color: #111a16;
+    position: relative;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #111a16;
+    background-color: #19875461;
+    border-radius: 15px;
+}
+
+.container {
+    margin-bottom: 150px;
+}
+
+
+/* تنسيق مخصص لبطاقة التسجيل */
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    text-align: right;
+    font-family: "Changa", sans-serif;
+}
+
+
+/* الهوامش العلوية */
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+
+/* تنسيق لزر التسجيل */
+
+.btn {
+    background-color: var(--c-main);
+    border: none;
+}
+
+.btn:hover {
+    background-color: #04481f;
+}
+
+
+/* تنسيق إضافي لحقل الإدخال */
+
+.form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+/* جعل الحقول تأخذ كامل عرض البطاقة */
+
+.mb-3 input {
+    width: 100%;
+}
+
+footer {
+    background-color: #343a40;
+    /* Dark background color */
+    color: #ffffff;
+    /* White text color */
+    padding: 40px 0;
+    /* Padding top and bottom */
+    font-family: 'Arial', sans-serif;
+    /* Font family */
+    position: relative;
+    bottom: 0;
+}
+
+footer h5 {
+    font-family: "Changa", sans-serif;
+    font-size: 1.25rem;
+    /* Heading size */
+    margin-bottom: 20px;
+    /* Margin below headings */
+    font-weight: bold;
+    /* Bold headings */
+    color: #7fc4a3;
+}
+
+footer ul {
+    list-style: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove padding */
+}
+
+footer ul li {
+    margin-bottom: 10px;
+    /* Spacing between list items */
+}
+
+footer a {
+    font-family: "Changa", sans-serif;
+    color: #ffffff;
+    /* White link color */
+    text-decoration: none;
+    /* Remove underline */
+    transition: color 0.3s ease;
+    /* Smooth color transition */
+}
+
+footer a:hover {
+    color: #17a2b8;
+    /* Hover color */
+}
+
+footer .text-center {
+    margin-top: 20px;
+    /* Spacing above the copyright text */
+    font-size: 0.9rem;
+    /* Smaller font size for copyright */
+}
+
+footer .text-center p {
+    margin: 0;
+    /* Remove margin from paragraph */
+}
+
+footer .text-center a {
+    color: #17a2b8;
+    /* Link color for copyright */
+}
+
+footer .text-center a:hover {
+    text-decoration: underline;
+    /* Underline on hover */
+}
+
+.register-link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: blue;
+    /* يمكنك تغيير اللون كما ترغب */
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

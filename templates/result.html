@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج الفحص</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css')}}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- تضمين مكتبة jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- تضمين jsPDF AutoTable لإضافة الجداول -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- تضمين مكتبة SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- تضمين مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: "Changa", sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        h1 {
+            background-color: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+            margin: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header,
+        .details {
+            font-size: 18px;
+            color: #198754;
+            text-align: center;
+            margin: 15px 0;
+            font-family: "Changa", sans-serif;
+        }
+        
+        .details {
+            font-size: 16px;
+            color: #555;
+            font-family: "Changa", sans-serif;
+        }
+        
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #198754;
+            color: white;
+            font-weight: bold;
+        }
+        
+        td {
+            background-color: #f9f9f9;
+        }
+        /* تعديل الأزرار لتكون في الجهة العلوية اليمنى */
+        
+        .top-buttons {
+            position: absolute;
+            right: 0;
+            margin-top: 40px;
+            margin-right: 70px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 10px 11px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        button i {
+            margin-right: 8px;
+        }
+        
+        button:hover {
+            background-color: white;
+            color: #198754;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            border: 2px solid #198754;
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* زر الرجوع إلى أعلى الصفحة */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        #backToTop i {
+            margin-right: 8px;
+        }
+        
+        #backToTop:hover {
+            background-color: #1c7430;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light ">
+        <div class="container-fluid">
+
+            <a class="navbar-brand text-success" style="font-size: 23px;  " href="#">
+                <i class="fas fa-shield-alt"></i> Keep<span style="color: darkgreen;">Safe</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index')}}">الصفحة الرئيسية</a>
+                    </li>
+
+
+
+                    <li class="nav-item dropdown ms-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  الخدمات
+                </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-right" href="#">كشف الثغرات</a></li>
+                            <li><a class="dropdown-item text-right" href="#">فحص المنافذ </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-right" href="#">المزيد قريبا</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cr7">من نحن </a>
+                    </li>
+                    <li class="nav-item ms-3"></li>
+                    <a class="nav-link active" aria-current="page" href="#" style="  font-size: 19px;  border-bottom: 3px solid #198754;">
+                            لوحة التحكم
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <p class="btn btn-light" style="background-color: rgba(125, 178, 122, 0.084); margin: 2px 16px; font-size: 18px; border: 2px solid #198754; border-radius: 18px; display: flex; align-items: center;">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 10px;"></i> {{ current_user.email }}
+            </p>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger" style="color: aliceblue; font-size: 16px; border: 2px solid #d907074b">تسجيل الخروج</a>
+
+
+
+        </div>
+    </nav>
+
+    <h1>نتائج الفحص</h1>
+
+
+    <!-- أزرار في الجهة العلوية اليمنى -->
+    <div class="top-buttons">
+        <!-- زر لحفظ التقرير كملف PDF -->
+        <button onclick="confirmAndSavePDF()" dir="rtl">
+            <i class="fas fa-file-pdf"></i> حفظ التقرير كملف PDF
+        </button>
+        <!-- زر للرجوع إلى الصفحة الرئيسية -->
+        <button onclick="window.location.href='{{ url_for('scann') }}';" dir="rtl">
+            <i class="fa-solid fa-arrow-right " style="font-size: 24px;"></i>        </button>
+
+
+    </div>
+
+    <!-- عرض اسم الموقع، التاريخ، والوقت -->
+    <!-- <div class="header">KeepSafe</div> -->
+    <div class="details" id="scanDetails"></div>
+
+    <table border="1" id="resultsTable">
+        <thead>
+            <tr>
+                <th>رابط الهدف</th>
+                <th>اسم الثغرة</th>
+                <th>مستوى الخطورة</th>
+                <th>الوصف</th>
+                <th>الحل</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for scan in all_alerts %} {% for alert in scan.alerts %}
+            <tr>
+                <td>{{ scan.target_url }}</td>
+                <!-- عرض رابط الهدف -->
+                <td>{{ alert.name }}</td>
+                <td>{{ alert.risk }}</td>
+                <td>{{ alert.description }}</td>
+                <td>{{ alert.solution }}</td>
+            </tr>
+            {% endfor %} {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <!-- زر للرجوع إلى أعلى الصفحة -->
+    <button id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i> 
+    </button>
+
+
+
+
+
+
+    <!-- function displayDateTime() {
+        const currentDate = new Date();
+        // الحصول على التاريخ بصيغة عربية
+        const dateString = currentDate.toLocaleDateString('ar-EG');
+        // الحصول على الوقت بصيغة عربية
+        const timeString = currentDate.toLocaleTimeString('ar-EG');
+        // الحصول على اليوم بصيغة عربية
+        const dayString = currentDate.toLocaleDateString('ar-EG', {
+            weekday: 'long'
+        });
+    
+        console.log(`اليوم: ${dayString}, التاريخ: ${dateString}, الوقت: ${timeString}`);
+    } -->
+
+
+    <script>
+        // وظيفة لعرض التاريخ والوقت الحاليين
+        function displayDateTime() {
+            const currentDate = new Date();
+            const dateString = currentDate.toLocaleDateString('en-US');
+            const timeString = currentDate.toLocaleTimeString('en-US');
+            const dayString = currentDate.toLocaleDateString('ar-MA', {
+                weekday: 'long'
+            });
+
+            const detailsElement = document.getElementById('scanDetails');
+            detailsElement.innerHTML = `تاريخ الفحص:  ${dateString}<br>اليوم:  ${dayString}<br><div dir="rtl">  توقيت الفحص: ${timeString} </div>`;
+        }
+
+        // استدعاء الوظيفة عند تحميل الصفحة
+        window.onload = displayDateTime;
+        window.onload = function() {
+            displayDateTime();
+            colorRiskLevels(); // استدعاء دالة تلوين مستوى الخطورة بعد تحميل الصفحة
+        };
+
+        // دالة لتلوين مستوى الخطورة
+        function colorRiskLevels() {
+            const rows = document.querySelectorAll('#resultsTable tbody tr');
+            rows.forEach(row => {
+                const riskLevelCell = row.cells[2]; // افتراض أن مستوى الخطورة في العمود الثاني
+                const riskLevel = riskLevelCell.textContent.trim();
+
+                // تلوين الخلايا بناءً على مستوى الخطورة
+                if (riskLevel === 'High') {
+                    riskLevelCell.style.backgroundColor = '#d63504d5';
+                    riskLevelCell.style.color = '#000';
+                } else if (riskLevel === 'Medium') {
+                    riskLevelCell.style.backgroundColor = '#ff9c07df';
+                    riskLevelCell.style.color = '#000';
+                } else if (riskLevel === 'Low') {
+                    riskLevelCell.style.backgroundColor = '#f3ff07b9';
+                    riskLevelCell.style.color = '#000';
+                } else if (riskLevel === 'Informational') {
+                    riskLevelCell.style.backgroundColor = '#cce6ff';
+                    riskLevelCell.style.color = '#003366';
+                }
+
+            });
+        }
+
+
+        // دالة لعرض تأكيد قبل حفظ التقرير
+        function confirmAndSavePDF() {
+            Swal.fire({
+                title: '؟ PDFهل تريد حفظ التقرير كملف ',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'نعم',
+                cancelButtonText: 'إلغاء'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    saveReportAsPDF(); // استدعاء دالة الحفظ إذا وافق المستخدم
+                }
+            });
+        }
+
+        // دالة لحفظ التقرير كملف PDF
+        function saveReportAsPDF() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            const currentDate = new Date();
+            const dateString = currentDate.toLocaleDateString('en-US');
+            const timeString = currentDate.toLocaleTimeString('en-US');
+            const dayString = currentDate.toLocaleDateString('en-US', {
+                weekday: 'long'
+            });
+
+            doc.setFontSize(16);
+            doc.text('KeepSafe', 10, 10);
+            doc.setFontSize(12);
+            doc.text(`Scan Date: ${dateString}`, 10, 20);
+            doc.text(`Scan Time: ${timeString}`, 10, 30);
+            doc.text(`Day: ${dayString}`, 10, 40);
+
+            const headers = [
+                ['Target link', 'Vulnerability Name', 'Risk Level', 'Description', 'Solution']
+            ];
+            const rows = [];
+
+            document.querySelectorAll('#resultsTable tbody tr').forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('td').forEach(cell => {
+                    rowData.push(cell.innerText);
+                });
+                rows.push(rowData);
+            });
+
+            doc.autoTable({
+                head: headers,
+                body: rows,
+                startY: 50,
+                styles: {
+                    font: "arabic",
+                    fontStyle: "normal"
+                }
+            });
+
+            // حفظ ملف PDF
+            doc.save('zap_report.pdf');
+
+            // عرض تنبيه بعد الحفظ
+            Swal.fire({
+                icon: 'success',
+                title: '!تم حفظ التقرير بنجاح',
+                text: '. PDF تم حفظ تقرير الفحص كملف ',
+                showConfirmButton: true,
+                confirmButtonText: 'موافق'
+            });
+        }
+
+        // دالة للتمرير إلى أعلى الصفحة
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // عرض زر الرجوع إلى أعلى الصفحة عند التمرير
+        window.onscroll = function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+    </script>
+</body>
+
+</html>

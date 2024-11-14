@@ -1,0 +1,249 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+ :root {
+    --c-main: #198754;
+}
+
+#navbarSupportedContent {
+    margin-left: 80px;
+}
+
+.container-fluid {
+    font-family: "Changa", sans-serif;
+}
+
+.navbar a {
+    color: #111a16;
+    position: relative;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #111a16;
+    background-color: #19875461;
+    border-radius: 15px;
+}
+
+nav .login button {
+    font-size: 17px;
+}
+
+nav .login a:hover {
+    background-color: #9f9f9e00;
+}
+
+.containerr {
+    font-family: "Changa", sans-serif;
+    display: flex;
+    width: 93%;
+    /* justify-content: space-between; 
+position: relative; */
+}
+
+.vid {
+    width: 100%;
+    height: 98vh;
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-vid {
+    /* margin-bottom: 95px; */
+    position: absolute;
+    width: 115%;
+    height: 1000px;
+    /* right: 0 5%;
+        bottom: 0; */
+    z-index: -1;
+}
+
+.container {
+    text-align: right;
+}
+
+.container .btn {
+    margin-top: 20px;
+    margin-right: 30px;
+}
+
+.fav {
+    font-family: "Changa", sans-serif;
+    margin-top: 120px;
+    background-color: rgb(255, 255, 255);
+    height: 90px;
+    align-items: center;
+    text-align: center;
+}
+
+.fav h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #111a16;
+}
+
+.fav .line {
+    width: 70px;
+    height: 7px;
+    background-color: var(--c-main);
+    margin: 16px auto 24px auto;
+}
+
+.animate__fadeIn {
+    animation-duration: 2s;
+    animation-delay: 1s;
+}
+
+.about {
+    font-family: "Changa", sans-serif;
+    margin-top: 100px;
+}
+
+.about h5 {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.about p {
+    margin-top: 18px;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.about img {
+    width: 550px;
+    height: 500px;
+}
+
+.servers {
+    font-family: "Changa", sans-serif;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.servers .card-body h4 {
+    font-weight: 600;
+}
+
+#scanVideo {
+    display: none;
+}
+
+
+/* Footer Styles */
+
+footer {
+    background-color: #343a40;
+    /* Dark background color */
+    color: #ffffff;
+    /* White text color */
+    padding: 40px 0;
+    /* Padding top and bottom */
+    font-family: 'Arial', sans-serif;
+    /* Font family */
+    position: relative;
+    bottom: 0;
+}
+
+footer h5 {
+    font-family: "Changa", sans-serif;
+    font-size: 1.25rem;
+    /* Heading size */
+    margin-bottom: 20px;
+    /* Margin below headings */
+    font-weight: bold;
+    /* Bold headings */
+    color: #7fc4a3;
+}
+
+footer ul {
+    list-style: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove padding */
+}
+
+footer ul li {
+    margin-bottom: 10px;
+    /* Spacing between list items */
+}
+
+footer a {
+    font-family: "Changa", sans-serif;
+    color: #ffffff;
+    /* White link color */
+    text-decoration: none;
+    /* Remove underline */
+    transition: color 0.3s ease;
+    /* Smooth color transition */
+}
+
+footer a:hover {
+    color: #17a2b8;
+    /* Hover color */
+}
+
+footer .text-center {
+    margin-top: 20px;
+    /* Spacing above the copyright text */
+    font-size: 0.9rem;
+    /* Smaller font size for copyright */
+}
+
+footer .text-center p {
+    margin: 0;
+    /* Remove margin from paragraph */
+}
+
+footer .text-center a {
+    color: #17a2b8;
+    /* Link color for copyright */
+}
+
+footer .text-center a:hover {
+    text-decoration: underline;
+    /* Underline on hover */
+}
+
+
+/* صفحة المستخدم  */
+
+.carousel-inner img {
+    width: 100%;
+    /* اجعل الصور تأخذ عرض 100% من الحاوية */
+    height: auto;
+    /* احتفظ بنسبة العرض إلى الارتفاع */
+    object-fit: cover;
+    /* اجعل الصور تتناسب مع الحاوية بدون تشويه */
+}
+
+.custom-carousel {
+    max-width: 80%;
+    /* يمكنك تغيير النسبة كما ترغب */
+    margin: 0 auto;
+    /* لمركز الحاوية */
+}
+
+.carousel {
+    margin-top: 20px;
+    margin-bottom: 80px;
+    /* إضافة مسافة من الأعلى والأسفل */
+}
